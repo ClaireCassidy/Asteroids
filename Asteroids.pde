@@ -1,29 +1,54 @@
 PImage background;
 
+boolean spacePressed = false;
+boolean upPressed = false;
+boolean leftPressed = false;
+boolean rightPressed = false;
+
 Ship player;
-Bullet testBullet;
 
 void setup() {
   size(1280, 720);
-  
+
   background = loadImage("background.png");
-  
+
   player = new Ship();
-  testBullet = new Bullet(width/2, height/2);
 }
 
 void draw() {
-  image(background,0,0);
-  
+  image(background, 0, 0);
+
+  player.updateShip();
   player.renderShip();
   player.renderBullets();
-  //player.shoot();
-  
-  testBullet.update();
-  testBullet.render();
 }
 
-void keyPressed(){
-      player.shoot();
-      print(player.onScreenBullets.size());
+void keyPressed() {
+  if (key == ' ') {
+    spacePressed = true;
+  }
+  if (keyCode == UP) {
+    upPressed = true;
+  }
+  if (keyCode == LEFT) {
+    leftPressed = true;
+  }
+  if (keyCode == RIGHT) {
+    rightPressed = true;
+  }
+}
+
+void keyReleased() {
+  if (key == ' ') {
+    spacePressed = false;
+  }
+  if (keyCode == UP) {
+    upPressed = false;
+  }
+  if (keyCode == LEFT) {
+    leftPressed = false;
+  }
+  if (keyCode == RIGHT) {
+    rightPressed = false;
+  }
 }
