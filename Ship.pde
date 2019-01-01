@@ -29,7 +29,8 @@ class Ship {
 
   void renderShip() {
     fill(255);
-    triangle(xPos, yPos, xPos-(shipWidth/2), yPos+shipHeight, xPos+(shipWidth/2), yPos+shipHeight);
+    //triangle(xPos, yPos, xPos-(shipWidth/2), yPos+shipHeight, xPos+(shipWidth/2), yPos+shipHeight);
+    image(ship, xPos-shipWidth/2-10, yPos);
   }
 
   void renderBullets() {

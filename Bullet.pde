@@ -8,7 +8,8 @@ class Bullet {
   }
 
   void render() {
-    ellipse(displacement.x, displacement.y, bulletWidth, bulletWidth);
+    //ellipse(displacement.x, displacement.y, bulletWidth, bulletWidth);
+    image(bullet, displacement.x, displacement.y);
   }
 
   void update() {

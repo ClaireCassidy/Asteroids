@@ -2,6 +2,9 @@ float enemyWidth;
 float enemyHeight;
 
 PImage background;
+PImage enemy;
+PImage ship;
+PImage bullet;
 
 boolean spacePressed = false;
 boolean upPressed = false;
@@ -19,6 +22,9 @@ void setup() {
   enemyHeight = height/20;
 
   background = loadImage("background.png");
+  enemy = loadImage("enemy.png");
+  ship = loadImage("ship.png");
+  bullet = loadImage("bullet.png");
 
   player = new Ship();
   troops = new ArrayList<EnemyTroop>();
@@ -29,7 +35,7 @@ void setup() {
 
 void draw() {
   image(background, 0, 0);
-
+  
   player.updateShip();
   player.renderShip();
   player.renderBullets();

@@ -35,7 +35,8 @@ class Enemy {
   
   void render() {
     //rectMode(CENTER);
-    rect(xPos, yPos, enemyWidth, enemyHeight);
+    //rect(xPos, yPos, enemyWidth, enemyHeight);
+    image(enemy, xPos, yPos);
   }
   
   boolean isColliding() {
