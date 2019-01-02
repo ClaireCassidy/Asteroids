@@ -15,21 +15,25 @@ class Ship {
   }
 
   void updateShip() {
-
-    if (leftPressed && !rightPressed) {
-      moveLeft();
-    }
-    if (rightPressed && !leftPressed) {
-      moveRight();
-    }
-    if (spacePressed || upPressed) {
-      shoot();
+    if (isColliding()) {
+      changeGameState(GAME_STATE_OVER);
+    } else {
+      if (leftPressed && !rightPressed) {
+        moveLeft();
+      }
+      if (rightPressed && !leftPressed) {
+        moveRight();
+      }
+      if (spacePressed || upPressed) {
+        shoot();
+      }
     }
   }
 
   void renderShip() {
     fill(255);
-    triangle(xPos, yPos, xPos-(shipWidth/2), yPos+shipHeight, xPos+(shipWidth/2), yPos+shipHeight);
+    //triangle(xPos, yPos, xPos-(shipWidth/2), yPos+shipHeight, xPos+(shipWidth/2), yPos+shipHeight);
+    image(ship, xPos-shipWidth/2-10, yPos);
   }
 
   void renderBullets() {
@@ -47,11 +51,10 @@ class Ship {
 
   void shoot() {
 
-
     int curTime = millis();
     if (curTime>lastBulletTime+bulletDelay) {
       lastBulletTime = curTime;
-      onScreenBullets.add(new Bullet(xPos, yPos));
+      onScreenBullets.add(new Bullet(xPos, yPos, onScreenBullets, BULLET_TYPE_PLAYER));
     }
   }
 
@@ -65,5 +68,19 @@ class Ship {
     if (xPos - shipWidth/2 >=0) {
       xPos-=shipSpeed;
     }
+  }
+  
+  boolean isColliding() {
+    for (Bullet bullet: troops.get(0).bullets) {
+      float bulletX = bullet.displacement.x;
+      float bulletY = bullet.displacement.y;
+      if (bulletX>= xPos - shipWidth/2 &&
+          bulletX+bullet.bulletWidth <= xPos + shipWidth/2 &&
+          bulletY + bullet.bulletWidth >= yPos &&
+          !(bulletY > yPos + shipHeight)) {
+           return true; 
+          }
+    }
+    return false;
   }
 }
