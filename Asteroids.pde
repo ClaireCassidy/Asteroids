@@ -11,6 +11,9 @@ boolean upPressed = false;
 boolean leftPressed = false;
 boolean rightPressed = false;
 
+int background1Y;
+int background2Y;
+
 ArrayList<EnemyTroop> troops;
 
 Ship player;
@@ -20,6 +23,9 @@ void setup() {
 
   enemyWidth = width/20;
   enemyHeight = height/20;
+
+  background1Y = 0;
+  background2Y = 0-height;
 
   background = loadImage("background.png");
   enemy = loadImage("enemy.png");
@@ -34,8 +40,11 @@ void setup() {
 }
 
 void draw() {
-  image(background, 0, 0);
-  
+  scrollBackground();
+
+  image(background, 0, background1Y);
+  image(background, 0, background2Y);
+
   player.updateShip();
   player.renderShip();
   player.renderBullets();
@@ -49,7 +58,7 @@ void draw() {
       enemyTroop.renderEnemies();
     }
   }
-  
+
   //adjustEnemyQuantity();
 }
 
@@ -85,12 +94,17 @@ void keyReleased() {
 
 void adjustEnemyQuantity() {
   int counter = 0;
-  
-  for (EnemyTroop e:troops) {
+
+  for (EnemyTroop e : troops) {
     counter+=e.troopSize();
   }
-  
+
   if (((double)counter/((double)troops.size()*15))<0.34) {
     troops.add(new EnemyTroop());
   }
+}
+
+void scrollBackground() {
+  background1Y = (background1Y > height?0-height:background1Y+1);
+  background2Y = (background2Y > height?0-height:background2Y+1);
 }
