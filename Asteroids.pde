@@ -34,7 +34,7 @@ void setup() {
 
   player = new Ship();
   troops = new ArrayList<EnemyTroop>();
-  troops.add(new EnemyTroop());
+  troops.add(new EnemyTroop(5));
 
   print(player.shipHeight);
 }

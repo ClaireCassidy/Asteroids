@@ -1,9 +1,11 @@
 class Bullet {
+  ArrayList<Bullet> parent;
   final float bulletWidth = width/100;
   final PVector velocity = new PVector().set(0, -10);
   PVector displacement = new PVector();
 
-  Bullet(float xPos, float yPos) {
+  Bullet(float xPos, float yPos, ArrayList<Bullet> parent) {
+    this. parent = parent;
     displacement.set(xPos, yPos);
   }
 
@@ -18,5 +20,9 @@ class Bullet {
   
   boolean outOfRange() {
      return (displacement.y<0); 
+  }
+  
+  void remove() {
+    parent.remove(this);
   }
 }

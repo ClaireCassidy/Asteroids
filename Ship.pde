@@ -52,7 +52,7 @@ class Ship {
     int curTime = millis();
     if (curTime>lastBulletTime+bulletDelay) {
       lastBulletTime = curTime;
-      onScreenBullets.add(new Bullet(xPos, yPos));
+      onScreenBullets.add(new Bullet(xPos, yPos, onScreenBullets));
     }
   }
 

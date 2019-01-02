@@ -5,6 +5,7 @@ class EnemyTroop {
   final int LEFT = -1;
   int lastDirection;
 
+  final int numRows;
   final int movesPerRow = 5;
   final int enemiesPerRow = 12;
   final float jumpDistance = enemyWidth;
@@ -17,6 +18,15 @@ class EnemyTroop {
   ArrayList<Enemy> enemies;
 
   EnemyTroop() {
+    numRows = 1;
+    enemies = new ArrayList<Enemy>();
+    initialiseEnemies();
+    moveCounter = 1;
+    lastDirection = RIGHT;
+  }
+
+  EnemyTroop(int n) {
+    numRows = n;
     enemies = new ArrayList<Enemy>();
     initialiseEnemies();
     moveCounter = 1;
@@ -24,20 +34,22 @@ class EnemyTroop {
   }
 
   void initialiseEnemies() {
-    for (int i=0; i<enemiesPerRow; i++) {
-      enemies.add(new Enemy(20+i*(enemyWidth+20), 20, jumpDistance));
+    for (int row = 0; row<numRows; row++) {
+      for (int i=0; i<enemiesPerRow; i++) {
+        enemies.add(new Enemy(20+i*(enemyWidth+20), (row*enemyHeight)+20, jumpDistance));
+      }
     }
   }
 
   void updateEnemies() {
-    
+
     for (int i = enemies.size()-1; i>=0; i--) {
-        Enemy e = enemies.get(i);
-        if (e.isColliding() || e.isOutOfBounds()) {
-          enemies.remove(e);
-        }
+      Enemy e = enemies.get(i);
+      if (e.isColliding() || e.isOutOfBounds()) {
+        enemies.remove(e);
       }
-      
+    }
+
     int time = millis();
     if (time > lastUpdateTime + updateDelay) {
       int moveDirection;
